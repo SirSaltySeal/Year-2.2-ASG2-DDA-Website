@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link href="login.css" rel="stylesheet">
     <title>Login Page</title>
   </head>
   <script type="module">
@@ -33,7 +33,28 @@
     import{getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword}
     from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    
+    const loginForm = document.getElementById('loginForm');
+
+        loginForm.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('emailID').value;
+            const password = document.getElementById('passwordID').value;
+
+            const auth = getAuth();
+
+            // Sign in with email and password
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // The user is signed in.
+                    alert('Login successful');
+                    // You can redirect or perform additional actions here
+                })
+                .catch((error) => {
+                    // Handle login errors
+                    alert('Error: ' + error.message);
+                });
+        });
   </script>
   <body>
     <div class="container form-container">
@@ -43,14 +64,14 @@
             <h1 class="login-title">Login</h1>
             <form>
               <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1">
+                <label for="emailLabel">Email</label>
+                <input type="email" class="form-control" id="emailID">
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label for="passwordLabel">Password</label>
+                <input type="password" class="form-control" id="passwordID">
               </div>
-              <button type="submit" class="btn btn-primary mt-3">Submit</button>
+              <button type="submit" class="btn btn-primary btn-lg w-100 mt-3" id="loginForm">Login</button>
             </form>
           </div>
         </div>
