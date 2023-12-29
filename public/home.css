@@ -1,0 +1,31 @@
+/* Custom CSS */
+.jumbotron {
+    height: 100vh; /* Full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000; /* Optional text shadow for better readability */
+}
+
+.navbar .navbar-brand {
+    font-size: 2rem; /* Larger brand font */
+    font-weight: bold;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body, .jumbotron, .navbar {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+/* Add more custom styles as needed */
