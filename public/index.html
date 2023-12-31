@@ -49,6 +49,7 @@
                     // The user is signed in.
                     alert('Login successful');
                     // You can redirect or perform additional actions here
+                    window.location.href = 'home.html';
                 })
                 .catch((error) => {
                     // Handle login errors
@@ -72,6 +73,7 @@
                 <input type="password" class="form-control" id="passwordID">
               </div>
               <button type="submit" class="btn btn-primary btn-lg w-100 mt-3" id="loginForm">Login</button>
+              <a href="register.html" class="btn btn-link text-decoration-none">Register Here</a>
             </form>
           </div>
         </div>

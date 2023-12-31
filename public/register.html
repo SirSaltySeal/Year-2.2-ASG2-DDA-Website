@@ -26,7 +26,7 @@
                             <label for="passwordLabel2">Confirm Password</label>
                             <input type="password" class="form-control" id="passwordID2">
                         </div>
-                        <button type="submit" id="registrationForm" class="btn btn-primary w-100 mt-3">Register</button>
+                        <button type="submit" id="registrationForm" class="btn btn-primary w-100 mt-3">Register</button>    
                     </form>
                 </div>
             </div>
@@ -60,6 +60,7 @@
             const email = document.getElementById('emailID').value;
             const password = document.getElementById('passwordID').value;
             const confirmPassword = document.getElementById('passwordID2').value;
+            
 
             if (password !== confirmPassword) {
                 alert('Passwords do not match');
@@ -73,6 +74,7 @@
                 .then((userCredential) => {
                     // The user account has been created and the user is signed in.
                     alert('Account created successfully');
+                    window.location.href = 'index.html';
                 })
                 .catch((error) => {
                     // An error occurred. Handle it accordingly.
