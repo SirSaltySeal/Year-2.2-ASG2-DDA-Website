@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="login.css" rel="stylesheet">
+    <title>Login Page</title>
+  </head>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTq8V5H2ke9BIA5e1Pc9jtbJ9hjt0KyB8",
+      authDomain: "asg2-database.firebaseapp.com",
+      databaseURL: "https://asg2-database-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "asg2-database",
+      storageBucket: "asg2-database.appspot.com",
+      messagingSenderId: "828718792877",
+      appId: "1:828718792877:web:3de1f8f6f630176e360624"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // for Realtime Database
+    import{getDatabase, ref, set, get, onValue, push, child, update, remove} 
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    // for Authentication
+    import{getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword}
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const loginForm = document.getElementById('loginForm');
+
+        loginForm.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('emailID').value;
+            const password = document.getElementById('passwordID').value;
+
+            const auth = getAuth();
+
+            // Sign in with email and password
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // The user is signed in.
+                    alert('Login successful');
+                    // You can redirect or perform additional actions here
+                    window.location.href = 'homeLoggedIn.html';
+                })
+                .catch((error) => {
+                    // Handle login errors
+                    alert('Error: ' + error.message);
+                });
+        });
+  </script>
+  <body>
+    <div class="container form-container">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="login-form">
+            <h1 class="login-title">Login</h1>
+            <form>
+              <div class="form-group">
+                <label for="emailLabel">Email</label>
+                <input type="email" class="form-control" id="emailID">
+              </div>
+              <div class="form-group">
+                <label for="passwordLabel">Password</label>
+                <input type="password" class="form-control" id="passwordID">
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg w-100 mt-3" id="loginForm">Login</button>
+              <a href="register.html" class="btn btn-link text-decoration-none">Register Here</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+    <script src="login.js"></script>
+  </body>
+</html>
