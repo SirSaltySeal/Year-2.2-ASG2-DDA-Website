@@ -28,4 +28,15 @@ body, .jumbotron, .navbar {
     margin-top: auto;
 }
 
+#userData {
+    margin-top: 20px;
+    color: black;
+}
+
+.user-stat {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 /* Add more custom styles as needed */

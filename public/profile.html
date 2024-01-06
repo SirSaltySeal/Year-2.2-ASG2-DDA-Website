@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCTq8V5H2ke9BIA5e1Pc9jtbJ9hjt0KyB8",
+          authDomain: "asg2-database.firebaseapp.com",
+          databaseURL: "https://asg2-database-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "asg2-database",
+          storageBucket: "asg2-database.appspot.com",
+          messagingSenderId: "828718792877",
+          appId: "1:828718792877:web:3de1f8f6f630176e360624"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        // for Realtime Database
+        import{getDatabase, ref, set, get, onValue, push, child, update, remove} 
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        // for Authentication
+        import{getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword}
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        const database = getDatabase(app);
+
+        const auth = getAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid;
+                // Reference to the logged-in user's data
+                const userRef = ref(database, 'users/' + uid);
+
+                // Fetch and display data for the logged-in user
+                onValue(userRef, (snapshot) => {
+                    const data = snapshot.val();
+                    displayData(data); // Assuming 'displayData' only handles single user data now
+                });
+            } else {
+                // User is signed out
+                // Handle user being signed out if necessary
+            }
+        });
+
+        function displayData(userStat) {
+            const container = document.getElementById('userData');
+            container.innerHTML = '';  // Clear existing data
+            if (userStat) {  // Check if userStat exists
+                const div = document.createElement('div');
+                div.className = 'user-stat';
+                div.innerHTML = `
+                    <h2>${userStat.username}</h2>
+                    <p>Number of Logins: ${userStat.logins}</p>
+                    <p>Recent Login Date: ${new Date(userStat.recentLogin).toLocaleString()}</p>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        function signOutUser() {
+        auth.signOut().then(() => {
+            console.log("User signed out");
+            // Redirect to login or home page
+            window.location.href = "login.html"; // or wherever you want to redirect
+        }).catch((error) => {
+            console.error("Sign Out Error", error);
+        });
+    }
+
+    // Attach signOut function to the button
+    document.getElementById("signOutBtn").addEventListener("click", signOutUser);
+      </script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Wonders of Singapore</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="home.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">TEAM KFC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto mr-10">
+                    <li class="nav-item">
+                        <a class="nav-link" href="homeLoggedIn.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aboutPageLoggedIn.html">About <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="signOutBtn" class="btn btn-danger my-2 my-sm-0" type="button">Sign Out</button>
+                    </li>
+                </ul>
+            </div>
+        </div>  
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="jumbotron jumbotron-fluid" style="background-image: url('VR.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="container">
+            <h1>User Statistics</h1>
+            <div id="userData">
+                <!-- User data will be populated here -->
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-dark text-white text-center">
+    <div class="container">
+        <p>© 2023 Team KFC. All rights reserved.</p>
+    </div>
+</footer>
+<!-- Bootstrap and necessary scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</html>
